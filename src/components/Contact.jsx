@@ -10,7 +10,8 @@ export default function Contact(props) {
     <Grid className={classes.root} xs={4}>
       <Paper
         className={classes.paper}
-        style={props.highlight ? { background: 'yellow' } : null}
+        style={props.highlight ? { background: '#FFEF5A' } : null}
+        elevation={0}
       >
         <div className={classes.detailContainer}>
           <Avatar src={props.avatar} className={classes.avatar} />
@@ -44,6 +45,7 @@ const useStyles = makeStyles({
     padding: 20,
     display: 'flex',
     flexDirection: 'column',
+    border: '1px solid #DEDEDE'
   },
   detailContainer: {
     display: 'flex',
