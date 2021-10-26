@@ -54,7 +54,7 @@ export default function Navbar() {
             labelId='gender-select-label'
             id='gender-select'
           >
-            <MenuItem value={undefined}>None</MenuItem>
+            <MenuItem value={undefined}>All Genders</MenuItem>
             <MenuItem value={'male'}>Male</MenuItem>
             <MenuItem value={'female'}>Female</MenuItem>
           </Select>
@@ -66,7 +66,7 @@ export default function Navbar() {
 
 const useStyles = makeStyles({
   root: {
-    background: 'rgba(255, 255, 255, 0.5)',
+    background: 'rgba(255, 255, 255, 0.75)',
     backdropFilter: 'blur(6px)',
   },
   toolBar: {
