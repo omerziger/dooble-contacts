@@ -6,64 +6,39 @@ import Contact from './Contact';
 export default function ContactList() {
   const classes = useStyles();
   const { contacts } = useContext(ContactsContext);
-  const [filteredList, setFilteredList] = useState([]);
+  const [filteredList, setFilteredList] = useState(contacts.list);
+  const [highlightedList, setHighlightedList] = useState([]);
 
   useEffect(() => {
-    //  If no search values
-    if (!contacts.search.gender && contacts.search.value === '')
-      return setFilteredList([]);
-
-    // If both search values are present
-    if (contacts.search.gender && contacts.search.value !== '') {
-      const genderList = contacts.list.filter(
-        (contact) => contact.gender === contacts.search.gender
+    if (!contacts.search.gender) setFilteredList(contacts.list);
+    if (!contacts.search.value) setHighlightedList([]);
+    if (contacts.search.gender)
+      setFilteredList(
+        contacts.list.filter(
+          (contact) => contact.gender === contacts.search.gender
+        )
       );
 
-      const searchList = genderList.filter((contact) => {
-        return (
-          contact.name.first
-            .toLowerCase()
-            .includes(contacts.search.value.toLowerCase()) ||
-          contact.name.last
-            .toLowerCase()
-            .includes(contacts.search.value.toLowerCase()) ||
-          contact.email.includes(contacts.search.value.toLowerCase()) ||
-          contact.cell.includes(contacts.search.value.toLowerCase())
-        );
-      });
-
-      return setFilteredList(searchList);
-    }
-
-    // If only gender value is present
-    if (contacts.search.gender) {
-      const newList = contacts.list.filter(
-        (contact) => contact.gender === contacts.search.gender
+    if (contacts.search.value)
+      setHighlightedList(
+        filteredList.filter((contact) => {
+          return (
+            contact.name.first
+              .toLowerCase()
+              .includes(contacts.search.value.toLowerCase()) ||
+            contact.name.last
+              .toLowerCase()
+              .includes(contacts.search.value.toLowerCase()) ||
+            contact.email.includes(contacts.search.value.toLowerCase()) ||
+            contact.cell.includes(contacts.search.value.toLowerCase())
+          );
+        })
       );
-      return setFilteredList(newList);
-    }
-
-    // If only search value is present
-    if (contacts.search.value !== '') {
-      const newList = contacts.list.filter((contact) => {
-        return (
-          contact.name.first
-            .toLowerCase()
-            .includes(contacts.search.value.toLowerCase()) ||
-          contact.name.last
-            .toLowerCase()
-            .includes(contacts.search.value.toLowerCase()) ||
-          contact.email.includes(contacts.search.value.toLowerCase()) ||
-          contact.cell.includes(contacts.search.value.toLowerCase())
-        );
-      });
-      return setFilteredList(newList);
-    }
-  }, [contacts.list, contacts.search]);
+  }, [contacts.list, contacts.search, filteredList]);
 
   return (
     <Grid container className={classes.root}>
-      {contacts.list.map((contact) => {
+      {filteredList.map((contact) => {
         return (
           <Contact
             key={contact.login.uuid}
@@ -73,7 +48,7 @@ export default function ContactList() {
             gender={contact.gender}
             email={contact.email}
             phoneNumber={contact.cell}
-            highlight={filteredList.some(
+            highlight={highlightedList.some(
               (el) => el.login.uuid === contact.login.uuid
             )}
           />
