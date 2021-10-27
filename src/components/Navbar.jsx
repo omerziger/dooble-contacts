@@ -35,7 +35,7 @@ export default function Navbar() {
           value={contacts.search.value}
           onChange={handleSearchChange}
           InputProps={{
-            endAdornment: <IoIosSearch />,
+            endAdornment: <IoIosSearch className={classes.adornment} />,
           }}
           variant='outlined'
           size='small'
@@ -69,6 +69,9 @@ const useStyles = makeStyles({
   },
   search: {
     marginRight: 10,
+  },
+  adornment: {
+    fontSize: 18
   },
   select: {
     minWidth: 80,
