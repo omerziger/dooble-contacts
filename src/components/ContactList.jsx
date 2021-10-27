@@ -31,17 +31,14 @@ export default function ContactList() {
   // handles highlighting
   useEffect(() => {
     if (!store.search.length) return setHighlightedList([]);
+    const searchValue = store.search.toLowerCase();
     setHighlightedList(
       filteredList.filter((contact) => {
         return (
-          contact.name.first
-            .toLowerCase()
-            .includes(store.search.toLowerCase()) ||
-          contact.name.last
-            .toLowerCase()
-            .includes(store.search.toLowerCase()) ||
-          contact.email.includes(store.search.toLowerCase()) ||
-          contact.cell.includes(store.search.toLowerCase())
+          contact.name.first.toLowerCase().includes(searchValue) ||
+          contact.name.last.toLowerCase().includes(searchValue) ||
+          contact.email.includes(searchValue) ||
+          contact.cell.includes(searchValue)
         );
       })
     );
