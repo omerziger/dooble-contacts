@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
+import { ReactComponent as Logo } from '../static/doobleContacts.svg';
 import {
   AppBar,
-  FormControl,
-  InputLabel,
   makeStyles,
   MenuItem,
   Select,
   TextField,
   Toolbar,
-  Typography,
 } from '@material-ui/core';
 import ContactsContext from '../context/ContactsContext';
+import { IoIosSearch } from 'react-icons/io';
 
 export default function Navbar() {
   const classes = useStyles();
@@ -28,37 +27,30 @@ export default function Navbar() {
     }));
 
   return (
-    <AppBar
-      className={classes.root}
-      color='transparent'
-      variant='outlined'
-      position='fixed'
-    >
+    <AppBar className={classes.root} variant='outlined' position='fixed'>
       <Toolbar className={classes.toolBar} variant='dense'>
-        <Typography className={classes.brand} variant='h5'>
-          Contact Book
-        </Typography>
+        <Logo className={classes.logo} />
         <TextField
           className={classes.search}
           value={contacts.search.value}
           onChange={handleSearchChange}
+          InputProps={{
+            endAdornment: <IoIosSearch />,
+          }}
           variant='outlined'
           size='small'
         />
-        <FormControl>
-          <InputLabel id='gender-select-label'>Gender</InputLabel>
-          <Select
-            className={classes.select}
-            value={contacts.search.gender}
-            onChange={handleGenderChange}
-            labelId='gender-select-label'
-            id='gender-select'
-          >
-            <MenuItem value={undefined}>All Genders</MenuItem>
-            <MenuItem value={'male'}>Male</MenuItem>
-            <MenuItem value={'female'}>Female</MenuItem>
-          </Select>
-        </FormControl>
+
+        <Select
+          className={classes.select}
+          value={contacts.search.gender}
+          variant='outlined'
+          onChange={handleGenderChange}
+        >
+          <MenuItem value={undefined}>All Genders</MenuItem>
+          <MenuItem value={'male'}>Male</MenuItem>
+          <MenuItem value={'female'}>Female</MenuItem>
+        </Select>
       </Toolbar>
     </AppBar>
   );
@@ -66,16 +58,13 @@ export default function Navbar() {
 
 const useStyles = makeStyles({
   root: {
-    background: 'rgba(255, 255, 255, 0.75)',
-    backdropFilter: 'blur(6px)',
+    background: '#F6F8FA',
   },
   toolBar: {
     padding: '6px 20px',
+    alignItems: 'center',
   },
-  brand: {
-    fontFamily: 'Inter',
-    fontWeight: 600,
-    letterSpacing: 0.1,
+  logo: {
     marginRight: 20,
   },
   search: {
@@ -83,5 +72,6 @@ const useStyles = makeStyles({
   },
   select: {
     minWidth: 80,
+    height: 40,
   },
 });
