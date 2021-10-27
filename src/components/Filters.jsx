@@ -53,11 +53,11 @@ export default function Filters() {
               control={
                 <Select
                   className={classes.select}
-                  value={store.search.gender}
+                  value={store.filter.gender}
                   variant='outlined'
                   onChange={handleGenderChange}
                 >
-                  <MenuItem value={undefined}>All Genders</MenuItem>
+                  <MenuItem value={''}>All Genders</MenuItem>
                   <MenuItem value={'male'}>Male</MenuItem>
                   <MenuItem value={'female'}>Female</MenuItem>
                 </Select>

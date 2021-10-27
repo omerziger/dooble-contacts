@@ -13,7 +13,7 @@ export default function App() {
     status: 'idle',
     search: '',
     filter: {
-      gender: undefined,
+      gender: '',
       age: [0, 100],
     },
   });
