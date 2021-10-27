@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react';
-
-import Navbar from './components/Navbar';
+import Navbar from './layout/Navbar';
 import ContactList from './components/ContactList';
-import Footer from './components/Footer';
+import Footer from './layout/Footer';
 import getUsers from './services/RandomUserAPI';
-import ContactsContext from './context/ContactsContext';
 import Theme from './Theme';
+import StoreContext from './context/StoreContext';
 
 export default function App() {
-  const [contacts, setContacts] = useState({
+  const [store, setStore] = useState({
     page: 0,
     list: [],
     status: 'idle',
-    search: {
-      value: '',
+    search: '',
+    filter: {
       gender: undefined,
+      age: [0, 100],
     },
   });
 
   useEffect(() => {
-    setContacts((prev) => ({ ...prev, status: 'pending' }));
+    setStore((prev) => ({ ...prev, status: 'pending' }));
     getUsers(1).then((results) =>
-      setContacts((prev) => ({
+      setStore((prev) => ({
         ...prev,
         page: 1,
         list: results,
         status: 'resolved',
       }))
     );
-  }, []);
+  }, [setStore]);
 
   return (
     <Theme>
-      <ContactsContext.Provider value={{ contacts, setContacts }}>
+      <StoreContext.Provider value={{ store, setStore }}>
         <Navbar />
         <ContactList />
         <Footer />
-      </ContactsContext.Provider>
+      </StoreContext.Provider>
     </Theme>
   );
 }
