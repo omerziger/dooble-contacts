@@ -1,16 +1,17 @@
 import React from 'react';
-import ReactCountryFlag from 'react-country-flag';
+import Flag from 'react-world-flags';
 
-export default function Flag(props) {
+export default function CountryFlag(props) {
   return (
-    <ReactCountryFlag
-      countryCode={props.nat}
+    <Flag
+      code={props.nat}
       style={{
         zIndex: 1,
         position: 'absolute',
         top: '3%',
         alignSelf: 'flex-end',
-        fontSize: 26,
+        height: 20,
+        width: 20
       }}
     />
   );
