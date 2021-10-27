@@ -4,7 +4,7 @@ import { BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 import { GoMail } from 'react-icons/go';
 import { FcPhone } from 'react-icons/fc';
 import LocationTooltip from './LocationTooltip';
-import Flag from './Flag';
+import CountryFlag from './CountryFlag';
 
 export default function Contact(props) {
   const classes = useStyles(props);
@@ -16,7 +16,7 @@ export default function Contact(props) {
         style={props.highlight ? { background: '#FFEF5A' } : null}
       >
         <div className={classes.oval} />
-        <Flag nat={props.nat} />
+        <CountryFlag nat={props.nat} />
         <LocationTooltip location={props.location} />
         <Avatar className={classes.avatar} src={props.avatar} />
         {props.gender === 'male' ? (
