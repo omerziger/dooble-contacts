@@ -24,9 +24,8 @@ export default function Footer() {
       <Button
         className={classes.button}
         onClick={handleLoadClick}
-        variant='outlined'
-        disabled={contacts.status === 'pending'}
         color='primary'
+        disabled={contacts.status === 'pending'}
       >
         {contacts.status === 'pending' && contacts.page > 0 ? (
           <CircularProgress size={20} />
@@ -49,8 +48,8 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   button: {
-    background: 'rgba(255, 255, 255, 0.75)',
-    backdropFilter: 'blur(6px)',
     width: 120,
+    border: '1px solid',
+    background: '#fff',
   },
 });

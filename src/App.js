@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { CssBaseline } from '@material-ui/core';
+
 import Navbar from './components/Navbar';
 import ContactList from './components/ContactList';
 import Footer from './components/Footer';
 import getUsers from './services/RandomUserAPI';
 import ContactsContext from './context/ContactsContext';
+import Theme from './Theme';
 
 export default function App() {
   const [contacts, setContacts] = useState({
@@ -30,12 +31,12 @@ export default function App() {
   }, []);
 
   return (
-    <CssBaseline>
+    <Theme>
       <ContactsContext.Provider value={{ contacts, setContacts }}>
         <Navbar />
         <ContactList />
         <Footer />
       </ContactsContext.Provider>
-    </CssBaseline>
+    </Theme>
   );
 }

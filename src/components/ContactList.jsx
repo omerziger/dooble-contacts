@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import ContactsContext from '../context/ContactsContext';
-import Contact from './Contact';
+import Contact from './contact/Contact';
 
 export default function ContactList() {
   const classes = useStyles();
@@ -48,6 +48,9 @@ export default function ContactList() {
             gender={contact.gender}
             email={contact.email}
             phoneNumber={contact.cell}
+            nat={contact.nat}
+            age={contact.dob.age}
+            location={contact.location}
             highlight={highlightedList.some(
               (el) => el.login.uuid === contact.login.uuid
             )}
