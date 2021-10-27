@@ -100,7 +100,6 @@ const useStyles = makeStyles({
   select: {
     width: 100,
     height: 40,
-    marginRight: 20,
   },
   slider: {
     width: 120,
