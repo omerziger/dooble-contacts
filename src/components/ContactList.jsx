@@ -1,40 +1,51 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
-import ContactsContext from '../context/ContactsContext';
-import Contact from './contact/Contact';
+import StoreContext from '../context/StoreContext';
+import Contact from './Contact';
 
 export default function ContactList() {
   const classes = useStyles();
-  const { contacts } = useContext(ContactsContext);
-  const [filteredList, setFilteredList] = useState(contacts.list);
+  const { store } = useContext(StoreContext);
+  const [filteredList, setFilteredList] = useState(store.list);
   const [highlightedList, setHighlightedList] = useState([]);
 
   useEffect(() => {
-    if (!contacts.search.gender) setFilteredList(contacts.list);
-    if (!contacts.search.value) setHighlightedList([]);
-    if (contacts.search.gender)
-      setFilteredList(
-        contacts.list.filter(
-          (contact) => contact.gender === contacts.search.gender
-        )
-      );
+    setFilteredList(store.list);
+  }, [store.list]);
 
-    if (contacts.search.value)
-      setHighlightedList(
-        filteredList.filter((contact) => {
-          return (
-            contact.name.first
-              .toLowerCase()
-              .includes(contacts.search.value.toLowerCase()) ||
-            contact.name.last
-              .toLowerCase()
-              .includes(contacts.search.value.toLowerCase()) ||
-            contact.email.includes(contacts.search.value.toLowerCase()) ||
-            contact.cell.includes(contacts.search.value.toLowerCase())
-          );
-        })
-      );
-  }, [contacts.list, contacts.search, filteredList]);
+  // handles filtering
+  useEffect(() => {
+    setFilteredList(
+      store.list.filter((contact) => {
+        return (
+          (store.filter.gender
+            ? contact.gender === store.filter.gender
+            : true) &&
+          contact.dob.age >= store.filter.age[0] &&
+          contact.dob.age <= store.filter.age[1]
+        );
+      })
+    );
+  }, [store.list, store.filter]);
+
+  // handles highlighting
+  useEffect(() => {
+    if (!store.search.length) return setHighlightedList([]);
+    setHighlightedList(
+      filteredList.filter((contact) => {
+        return (
+          contact.name.first
+            .toLowerCase()
+            .includes(store.search.toLowerCase()) ||
+          contact.name.last
+            .toLowerCase()
+            .includes(store.search.toLowerCase()) ||
+          contact.email.includes(store.search.toLowerCase()) ||
+          contact.cell.includes(store.search.toLowerCase())
+        );
+      })
+    );
+  }, [store.search, filteredList]);
 
   return (
     <Grid container className={classes.root}>
